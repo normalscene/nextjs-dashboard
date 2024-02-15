@@ -1,4 +1,7 @@
+console.log(`HELLO !!!`);
+console.log(`PGURL ${process.env.POSTGRES_URL}`);
 const { db } = require('@vercel/postgres');
+
 const {
   invoices,
   customers,
@@ -8,6 +11,7 @@ const {
 const bcrypt = require('bcrypt');
 
 async function seedUsers(client) {
+    console.log(`creating user table`);
   try {
     await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
     // Create the "users" table if it doesn't exist
@@ -22,6 +26,7 @@ async function seedUsers(client) {
 
     console.log(`Created "users" table`);
 
+    console.log(`starting user insertion`);
     // Insert data into the "users" table
     const insertedUsers = await Promise.all(
       users.map(async (user) => {
